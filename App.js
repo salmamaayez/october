@@ -1,20 +1,47 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from "react";
+import { View, StyleSheet, Button } from "react-native";
+import ProductScreen from "./src/screens/ProductsScreen";
+import ProductDetailsScreen from "./src/screens/ProductDetailsScreen";
+import ShoppingCart from "./src/screens/ShoppingCart";
 
-export default function App() {
+const App = () => {
+  const [screen, setScreen] = useState("products"); // Valeur initiale 'products'
+
+  const renderScreen = () => {
+    switch (screen) {
+      case "products":
+        return <ProductScreen />;
+      case "productDetails":
+        return <ProductDetailsScreen />;
+      case "shoppingCart":
+        return <ShoppingCart />;
+      default:
+        return <ProductScreen />;
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Text>hi salmoush </Text>
-      <StatusBar style="auto" />
+      {renderScreen()}
+      <Button
+        title="Go to Product Details"
+        onPress={() => setScreen("productDetails")}
+      />
+      <Button
+        title="Go to Shopping Cart"
+        onPress={() => setScreen("shoppingCart")}
+      />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
+
+export default App;
